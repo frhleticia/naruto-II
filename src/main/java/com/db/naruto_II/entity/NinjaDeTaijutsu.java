@@ -1,10 +1,8 @@
 package com.db.naruto_II.entity;
 
-import java.util.Map;
-
 public class NinjaDeTaijutsu extends Personagem implements Ninja {
-    public NinjaDeTaijutsu(String nome, Map<String, Jutsu> jutsus, int chakra, int vida) {
-        super(nome, jutsus, chakra, vida);
+    public NinjaDeTaijutsu(String nome, int chakra, int vida) {
+        super(nome, chakra, vida);
     }
 
     @Override
