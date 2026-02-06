@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class PersonagemService {
 
-    private PersonagemRepository personagemRepository;
+    private final PersonagemRepository personagemRepository;
 
     public PersonagemService(PersonagemRepository personagemRepository) {
         this.personagemRepository = personagemRepository;
@@ -18,7 +18,7 @@ public class PersonagemService {
 
     public void criarPersonagem(PersonagemRequest request) {
         Personagem personagem = new Personagem(
-                request.nome(), request.chakra(), request.vida()
+                request.nome(), request.vida()
         );
 
         personagemRepository.saveAndFlush(personagem);
@@ -39,14 +39,25 @@ public class PersonagemService {
 
         String nome = jutsuRequest.nome();
 
-        if (nome == null || nome.isEmpty()) {
-            throw new RuntimeException("Nome do jutsu não pode ser nulo ou vazio");
+        if (personagem.getJutsus().containsKey(nome)) {
+            throw new RuntimeException("Jutsu já existe para esse personagem");
         }
 
         Jutsu jutsu = new Jutsu(jutsuRequest.dano(), jutsuRequest.consumoDeChakra());
 
-        personagem.getJutsus().putIfAbsent(nome, jutsu);
+        personagem.getJutsus().put(nome, jutsu);
 
-        personagemRepository.saveAndFlush(personagem);
+        personagemRepository.save(personagem);
+    }
+
+    public void aumentarChakra(Integer id, int quantidadeChakra) {
+        if (quantidadeChakra <= 0) {
+            throw new RuntimeException("Quantidade de chakra inválida");
+        }
+
+        Personagem personagem = buscarPersonagemPorId(id);
+        personagem.setChakra(personagem.getChakra() + quantidadeChakra);
+
+        personagemRepository.save(personagem);
     }
 }

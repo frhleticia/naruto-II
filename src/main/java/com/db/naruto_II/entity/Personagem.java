@@ -13,7 +13,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Table(name = "personagem")
 @Entity
-public class Personagem {
+public class Personagem implements Ninja{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,9 +33,8 @@ public class Personagem {
     @Column(name = "vida")
     private int vida;
 
-    public Personagem(String nome, int chakra, int vida) {
+    public Personagem(String nome, int vida) {
         this.nome = nome;
-        this.chakra = chakra;
         this.vida = vida;
     }
 
@@ -53,4 +52,17 @@ public class Personagem {
         }
     }
 
+    public boolean estaVivo() {
+        return getVida() > 0;
+    }
+
+    @Override
+    public void usarJutsu(Jutsu jutsu) {
+
+    }
+
+    @Override
+    public boolean desviar() {
+        return false;
+    }
 }

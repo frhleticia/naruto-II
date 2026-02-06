@@ -1,7 +1,7 @@
 package com.db.naruto_II.entity;
 
-public class NinjaDeTaijutsu extends Personagem implements Ninja {
-    public NinjaDeTaijutsu(String nome, int vida) {
+public class NinjaDeNinjutsu extends Personagem implements Ninja {
+    public NinjaDeNinjutsu(String nome, int vida) {
         super(nome, vida);
     }
 
@@ -14,16 +14,16 @@ public class NinjaDeTaijutsu extends Personagem implements Ninja {
 
         gastarChakra(jutsu.getConsumoDeChakra());
 
-        System.out.println(getNome()+" está usando um jutsu usando sua habilidade em Taijutsu.");
+        System.out.println(getNome()+" está usando um jutsu usando sua habilidade em Ninjutsu.");
     }
 
     @Override
     public boolean desviar() {
 
-        int chance = 60;
+        int chance = 40;
         int sorte = (int) (Math.random() * 100);
 
-        System.out.println(getNome()+" está desviando de um ataque usando sua habilidade em Taijutsu.");
+        System.out.println(getNome()+" está desviando de um ataque usando sua habilidade em Ninjutsu.");
 
         return sorte < chance;
     }
