@@ -13,7 +13,7 @@ import java.util.Map;
 @NoArgsConstructor
 @Table(name = "personagem")
 @Entity
-public class Personagem implements Ninja{
+public class Personagem implements Ninja {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
