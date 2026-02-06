@@ -13,18 +13,7 @@ public class CombateService {
         this.personagemService = personagemService;
     }
 
-    public Personagem buscarPersonagemVivo(Integer id){
-        Personagem personagem = personagemService.buscarPersonagemPorId(id);
-
-        if (!personagem.estaVivo()){
-            throw new RuntimeException("O personagem já está morto");
-        }
-
-        return personagem;
-    }
-
     public Jutsu encontrarJutsuPeloNome(Integer id, String nomeJutsu) {
-
         Personagem personagem = personagemService.buscarPersonagemPorId(id);
 
         if (personagem.getJutsus().isEmpty()){
@@ -34,14 +23,29 @@ public class CombateService {
         return personagem.getJutsus().get(nomeJutsu);
     }
 
+    public Personagem validarPersonagemVivo(Integer id){
+        Personagem personagem = personagemService.buscarPersonagemPorId(id);
+
+        if (!personagem.estaVivo()){
+            throw new RuntimeException("O personagem já está morto");
+        }
+
+        return personagem;
+    }
+
     public void atacarComJutsu(Integer idAtacante, Integer idDefensor, String nomeJutsu) {
 
-        Personagem atacante = buscarPersonagemVivo(idAtacante);
+        Personagem atacante = validarPersonagemVivo(idAtacante);
+
         Jutsu jutsu = encontrarJutsuPeloNome(idAtacante, nomeJutsu);
+        if (jutsu == null){
+            throw new RuntimeException("Jutsu não encontrado");
+        }
 
         atacante.usarJutsu(jutsu);
 
-        Personagem defensor = buscarPersonagemVivo(idDefensor);
+        Personagem defensor = validarPersonagemVivo(idDefensor);
+
         boolean desviou = defensor.desviar();
 
         if (!desviou){
