@@ -21,7 +21,7 @@ public class PersonagemService {
                 request.nome(), request.vida()
         );
 
-        personagemRepository.saveAndFlush(personagem);
+        personagemRepository.save(personagem);
     }
 
     public Personagem buscarPersonagemPorId(Integer id) {
@@ -61,3 +61,4 @@ public class PersonagemService {
         personagemRepository.save(personagem);
     }
 }
+

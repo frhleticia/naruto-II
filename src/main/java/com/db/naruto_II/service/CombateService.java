@@ -2,6 +2,7 @@ package com.db.naruto_II.service;
 
 import com.db.naruto_II.entity.Jutsu;
 import com.db.naruto_II.entity.Personagem;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -23,6 +24,7 @@ public class CombateService {
         return personagem.getJutsus().get(nomeJutsu);
     }
 
+    @Transactional
     public Personagem validarPersonagemVivo(Integer id){
         Personagem personagem = personagemService.buscarPersonagemPorId(id);
 
@@ -51,5 +53,7 @@ public class CombateService {
         if (!desviou){
             defensor.receberDano(jutsu.getDano());
         }
+
+
     }
 }
