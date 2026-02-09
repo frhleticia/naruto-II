@@ -12,8 +12,12 @@ import java.util.Map;
 @Setter
 @NoArgsConstructor
 @Table(name = "personagem")
+
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@DiscriminatorColumn(name = "tipo_ninja")
+
 @Entity
-public class Personagem implements Ninja {
+public abstract class Personagem implements Ninja {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -46,23 +50,13 @@ public class Personagem implements Ninja {
     }
 
     public void gastarChakra(int custo) {
-        this.chakra -= custo;
-        if (this.chakra < 0) {
-            this.chakra = 0;
+        if (this.chakra < custo) {
+            throw new RuntimeException("Chakra insuficiente");
         }
+        this.chakra -= custo;
     }
 
     public boolean estaVivo() {
         return getVida() > 0;
-    }
-
-    @Override
-    public void usarJutsu(Jutsu jutsu) {
-
-    }
-
-    @Override
-    public boolean desviar() {
-        return false;
     }
 }

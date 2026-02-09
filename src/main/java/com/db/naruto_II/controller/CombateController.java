@@ -12,7 +12,7 @@ public class CombateController {
 
     private final CombateService combateService;
 
-    @PostMapping("/{idAtacante}/atacar/{idDefensor}")
+    @PostMapping("/atacar")
     public void atacarComJutsu(@RequestBody AtaqueRequest req) {
         combateService.atacarComJutsu(req.idAtacante(), req.idDefensor(), req.nomeJutsu());
     }

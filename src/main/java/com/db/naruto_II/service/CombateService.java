@@ -21,10 +21,15 @@ public class CombateService {
             throw new RuntimeException("O personagem não possui jutsus");
         }
 
-        return personagem.getJutsus().get(nomeJutsu);
+        Jutsu jutsu = personagem.getJutsus().get(nomeJutsu.toLowerCase());
+
+        if (jutsu == null) {
+            throw new RuntimeException("Jutsu não encontrado");
+        }
+
+        return jutsu;
     }
 
-    @Transactional
     public Personagem validarPersonagemVivo(Integer id){
         Personagem personagem = personagemService.buscarPersonagemPorId(id);
 
@@ -35,6 +40,7 @@ public class CombateService {
         return personagem;
     }
 
+    @Transactional
     public void atacarComJutsu(Integer idAtacante, Integer idDefensor, String nomeJutsu) {
 
         Personagem atacante = validarPersonagemVivo(idAtacante);
@@ -53,7 +59,5 @@ public class CombateService {
         if (!desviou){
             defensor.receberDano(jutsu.getDano());
         }
-
-
     }
 }

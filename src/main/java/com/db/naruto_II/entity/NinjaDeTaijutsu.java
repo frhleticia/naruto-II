@@ -1,17 +1,20 @@
 package com.db.naruto_II.entity;
 
-public class NinjaDeTaijutsu extends Personagem implements Ninja {
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@DiscriminatorValue("TAIJUTSU")
+@Entity
+public class NinjaDeTaijutsu extends Personagem {
+
     public NinjaDeTaijutsu(String nome, int vida) {
         super(nome, vida);
     }
 
     @Override
     public void usarJutsu(Jutsu jutsu) {
-
-        if (getChakra() < jutsu.getConsumoDeChakra()){
-            throw new RuntimeException("O personagem atacante não tem chakra suficiente para usar esse jutsu");
-        }
-
         gastarChakra(jutsu.getConsumoDeChakra());
 
         System.out.println(getNome()+" está usando um jutsu usando sua habilidade em Taijutsu.");
@@ -19,12 +22,8 @@ public class NinjaDeTaijutsu extends Personagem implements Ninja {
 
     @Override
     public boolean desviar() {
-
-        int chance = 60;
-        int sorte = (int) (Math.random() * 100);
-
         System.out.println(getNome()+" está desviando de um ataque usando sua habilidade em Taijutsu.");
 
-        return sorte < chance;
+        return Math.random() < 0.60;
     }
 }
