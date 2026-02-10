@@ -23,10 +23,6 @@ public class CombateService {
 
         Jutsu jutsu = personagem.getJutsus().get(nomeJutsu.toLowerCase());
 
-        if (jutsu == null) {
-            throw new RuntimeException("Jutsu não encontrado");
-        }
-
         return jutsu;
     }
 

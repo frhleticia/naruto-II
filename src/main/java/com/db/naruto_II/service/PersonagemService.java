@@ -18,7 +18,7 @@ public class PersonagemService {
         this.personagemRepository = personagemRepository;
     }
 
-    public void criarPersonagem(PersonagemRequest request) {
+    public Personagem criarPersonagem(PersonagemRequest request) {
         Personagem personagem;
 
         if ("TAIJUTSU".equalsIgnoreCase(request.tipoNinja())) {
@@ -29,7 +29,7 @@ public class PersonagemService {
             throw new RuntimeException("Tipo de ninja inválido");
         }
 
-        personagemRepository.save(personagem);
+        return personagemRepository.save(personagem);
     }
 
     public Personagem buscarPersonagemPorId(Integer id) {
@@ -39,7 +39,10 @@ public class PersonagemService {
     }
 
     public void deletarPersonagem(Integer id) {
-        personagemRepository.deleteById(id);
+        Personagem personagem = personagemRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Personagem não encontrado"));
+
+        personagemRepository.delete(personagem);
     }
 
     public void adicionarJutsu(Integer id, JutsuRequest jutsuRequest){
