@@ -23,7 +23,7 @@ public abstract class Personagem implements Ninja {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
 
-    @Column(name = "nome", nullable = false)
+    @Column(name = "nome")
     private String nome;
 
     @ElementCollection

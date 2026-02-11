@@ -22,7 +22,6 @@ public class CombateServiceTest {
     @Mock
     private PersonagemService personagemService;
 
-
     @InjectMocks
     private CombateService combateService;
 

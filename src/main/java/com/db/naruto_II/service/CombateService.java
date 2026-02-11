@@ -23,6 +23,10 @@ public class CombateService {
 
         Jutsu jutsu = personagem.getJutsus().get(nomeJutsu.toLowerCase());
 
+        if (jutsu == null) {
+            throw new RuntimeException("Jutsu não encontrado");
+        }
+
         return jutsu;
     }
 
@@ -42,9 +46,6 @@ public class CombateService {
         Personagem atacante = validarPersonagemVivo(idAtacante);
 
         Jutsu jutsu = encontrarJutsuPeloNome(idAtacante, nomeJutsu);
-        if (jutsu == null){
-            throw new RuntimeException("Jutsu não encontrado");
-        }
 
         atacante.usarJutsu(jutsu);
 
