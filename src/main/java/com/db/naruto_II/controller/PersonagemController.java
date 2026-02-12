@@ -41,8 +41,8 @@ public class PersonagemController {
     }
 
     @GetMapping("/{id}")
-    public Personagem buscarPersonagemPorId(@PathVariable Integer id) {
-        return personagemService.buscarPersonagemPorId(id);
+    public ResponseEntity<Personagem> buscarPersonagemPorId(@PathVariable Integer id) {
+        return ResponseEntity.ok(personagemService.buscarPersonagemPorId(id));
     }
 
     @DeleteMapping("/{id}")
