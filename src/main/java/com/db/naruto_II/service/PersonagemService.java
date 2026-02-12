@@ -45,7 +45,7 @@ public class PersonagemService {
         personagemRepository.delete(personagem);
     }
 
-    public void adicionarJutsu(Integer id, JutsuRequest jutsuRequest){
+    public Jutsu adicionarJutsu(Integer id, JutsuRequest jutsuRequest){
         Personagem personagem = buscarPersonagemPorId(id);
 
         String nome = jutsuRequest.nome().trim().toLowerCase();
@@ -59,9 +59,11 @@ public class PersonagemService {
         personagem.getJutsus().put(nome, jutsu);
 
         personagemRepository.save(personagem);
+
+        return jutsu;
     }
 
-    public void aumentarChakra(Integer id, int quantidadeChakra) {
+    public Personagem aumentarChakra(Integer id, int quantidadeChakra) {
         if (quantidadeChakra <= 0) {
             throw new RuntimeException("Quantidade de chakra inválida");
         }
@@ -69,7 +71,7 @@ public class PersonagemService {
         Personagem personagem = buscarPersonagemPorId(id);
         personagem.setChakra(personagem.getChakra() + quantidadeChakra);
 
-        personagemRepository.save(personagem);
+        return personagemRepository.save(personagem);
     }
 }
 

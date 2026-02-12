@@ -5,10 +5,9 @@ import com.db.naruto_II.entity.NinjaDeNinjutsu;
 import com.db.naruto_II.entity.NinjaDeTaijutsu;
 import com.db.naruto_II.entity.Personagem;
 import com.db.naruto_II.repository.PersonagemRepository;
-import org.aspectj.weaver.patterns.PerObject;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
 
