@@ -3,7 +3,6 @@ package com.db.naruto_II.unit;
 import com.db.naruto_II.entity.Jutsu;
 import com.db.naruto_II.entity.NinjaDeNinjutsu;
 import com.db.naruto_II.entity.NinjaDeTaijutsu;
-import com.db.naruto_II.entity.Personagem;
 import com.db.naruto_II.service.CombateService;
 import com.db.naruto_II.service.PersonagemService;
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ public class CombateServiceTest {
 
     @Test
     void deveEncontrarJutsuPeloNome() {
-        Personagem personagem = new NinjaDeNinjutsu("Naruto", 100);
+        var personagem = new NinjaDeNinjutsu("Naruto", 100);
         Jutsu rasengan = new Jutsu(50, 10);
         personagem.getJutsus().put("rasengan", rasengan);
 
@@ -42,15 +41,23 @@ public class CombateServiceTest {
 
     @Test
     void deveLancarExcecaoQuandoPersonagemNaoTiverJutsus() {
-        NinjaDeTaijutsu personagem = new NinjaDeTaijutsu("Sasuke", 100);
+        var personagem = new NinjaDeTaijutsu("Sasuke", 100);
+        personagem.setId(1);
+
+        when(personagemService.buscarPersonagemPorId(1)).thenReturn(personagem);
 
         assertThrows(RuntimeException.class,
-                () -> combateService.encontrarJutsuPeloNome(personagem.getId(), "Rasengan"));
+                () -> combateService.encontrarJutsuPeloNome(1, "Rasengan"));
     }
 
     @Test
     void deveLancarExcecaoQuandoJutsuNaoEncontrado() {
-        Personagem personagem = new NinjaDeNinjutsu("Naruto", 100);
+        var personagem = new NinjaDeNinjutsu("Naruto", 100);
+        personagem.setId(1);
+
+        when(personagemService.buscarPersonagemPorId(1))
+                .thenReturn(personagem);
+
         Jutsu rasengan = new Jutsu(50, 10);
         personagem.getJutsus().put("rasengan", rasengan);
 
@@ -60,13 +67,13 @@ public class CombateServiceTest {
 
     @Test
     void deveValidarPersonagemVivo() {
-        Personagem personagem = new NinjaDeNinjutsu("Sakura", 100);
+        var personagem = new NinjaDeNinjutsu("Sakura", 100);
         personagem.setId(1);
 
         when(personagemService.buscarPersonagemPorId(1))
                 .thenReturn(personagem);
 
-        Personagem resultado =
+        var resultado =
                 combateService.validarPersonagemVivo(1);
 
         assertNotNull(resultado);
@@ -75,19 +82,23 @@ public class CombateServiceTest {
 
     @Test
     void deveLancarExcecaoQuandoPersonagemMorto() {
-        Personagem personagem = new NinjaDeTaijutsu("Hidan", 0);
+        var personagem = new NinjaDeTaijutsu("Sasuke", 0);
+        personagem.setId(1);
+
+        when(personagemService.buscarPersonagemPorId(1))
+                .thenReturn(personagem);
 
         assertThrows(RuntimeException.class,
-                () -> combateService.validarPersonagemVivo(personagem.getId()));
+                () -> combateService.validarPersonagemVivo(1));
     }
 
     @Test
     void deveAtacarComJutsuSemDesvio() {
-        Personagem atacante = new NinjaDeNinjutsu("Naruto", 100);
-        Personagem defensor = spy(new NinjaDeTaijutsu("Sasuke", 100));
+        var atacante = new NinjaDeNinjutsu("Naruto", 100);
+        var defensor = spy(new NinjaDeTaijutsu("Sasuke", 100));
         doReturn(0.99).when(defensor).gerarChance();
 
-        assertTrue(defensor.desviar());
+        assertFalse(defensor.desviar());
 
         atacante.setId(1);
         defensor.setId(2);
@@ -106,8 +117,8 @@ public class CombateServiceTest {
 
     @Test
     void deveAtacarComJutsuComDesvio() {
-        Personagem atacante = new NinjaDeNinjutsu("Naruto", 100);
-        Personagem defensor = spy(new NinjaDeTaijutsu("Sasuke", 100));
+        var atacante = new NinjaDeNinjutsu("Naruto", 100);
+        var defensor = spy(new NinjaDeTaijutsu("Sasuke", 100));
         doReturn(0.10).when(defensor).gerarChance();
 
         assertTrue(defensor.desviar());
@@ -130,8 +141,8 @@ public class CombateServiceTest {
 
     @Test
     void deveLancarExcecaoQuandoAtacarComJutsuInexistente() {
-        Personagem atacante = new NinjaDeTaijutsu("Sasuke", 100);
-        Personagem defensor = new NinjaDeTaijutsu("Naruto", 100);
+        var atacante = new NinjaDeTaijutsu("Sasuke", 100);
+        var defensor = new NinjaDeTaijutsu("Naruto", 100);
 
         assertThrows(RuntimeException.class,
                 () -> combateService.atacarComJutsu(atacante.getId(), defensor.getId(), "Chidori"));
@@ -139,8 +150,8 @@ public class CombateServiceTest {
 
     @Test
     void deveLancarExcecaoQuandoAtacarPersonagemMorto() {
-        Personagem atacante = new NinjaDeNinjutsu("Hidan", 0);
-        Personagem defensor = new NinjaDeNinjutsu("Sakura", 100);
+        var atacante = new NinjaDeNinjutsu("Hidan", 0);
+        var defensor = new NinjaDeNinjutsu("Sakura", 100);
         Jutsu rasengan = new Jutsu(50, 10);
         atacante.getJutsus().put("rasengan", rasengan);
 

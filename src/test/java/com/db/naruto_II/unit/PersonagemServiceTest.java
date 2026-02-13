@@ -105,6 +105,34 @@ public class PersonagemServiceTest {
     }
 
     @Test
+    void deveAumentarChakraQuandoDadosValidos() {
+        NinjaDeTaijutsu ninja = new NinjaDeTaijutsu("Naruto", 100);
+        ninja.setId(1);
+
+        when(personagemRepository.findById(1))
+                .thenReturn(Optional.of(ninja));
+
+        personagemService.aumentarChakra(1, 50);
+
+        assertEquals(150, ninja.getChakra());
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoAumentarChakraComQuantidadeInvalida() {
+        assertThrows(RuntimeException.class,
+                () -> personagemService.aumentarChakra(1, -10));
+    }
+
+    @Test
+    void deveLancarExcecaoQuandoAumentarChakraPersonagemInexistente() {
+        when(personagemRepository.findById(1))
+                .thenReturn(Optional.empty());
+
+        assertThrows(RuntimeException.class,
+                () -> personagemService.aumentarChakra(1, 50));
+    }
+
+    @Test
     void deveBuscarPersonagemPorIdQuandoExistente() {
         NinjaDeNinjutsu ninja = new NinjaDeNinjutsu("Shikamaru", 100);
         ninja.setId(1);

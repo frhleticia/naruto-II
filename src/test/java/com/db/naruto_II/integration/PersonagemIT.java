@@ -83,16 +83,18 @@ public class PersonagemIT {
     }
 
     @Test
-    void chakraNaoDeveFicarNegativo() {
+    void deveLancarExcecaoAoGastarChakraInsuficiente() {
         NinjaDeTaijutsu ninja = new NinjaDeTaijutsu("Rock Lee", 100);
 
-        ninja.gastarChakra(100);
+        assertThrows(RuntimeException.class, () -> ninja.gastarChakra(150));
+    }
 
-        personagemRepository.save(ninja);
+    @Test
+    void deveVerificarSePersonagemEstaVivo() {
+        NinjaDeNinjutsu ninja = new NinjaDeNinjutsu("Sasuke", 100);
+        assertTrue(ninja.estaVivo());
 
-        Personagem salvo =
-                personagemRepository.findById(ninja.getId()).orElseThrow();
-
-        assertEquals(0, salvo.getChakra());
+        ninja.receberDano(150);
+        assertFalse(ninja.estaVivo());
     }
 }
