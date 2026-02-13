@@ -24,6 +24,6 @@ public class NinjaDeNinjutsu extends Personagem {
     public boolean desviar() {
         System.out.println(getNome()+" está desviando de um ataque usando sua habilidade em Ninjutsu.");
 
-        return Math.random() < 0.40;
+        return gerarChance() < 0.40;
     }
 }

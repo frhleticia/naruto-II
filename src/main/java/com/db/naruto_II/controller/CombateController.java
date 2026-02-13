@@ -3,6 +3,7 @@ package com.db.naruto_II.controller;
 import com.db.naruto_II.dto.AtaqueRequest;
 import com.db.naruto_II.service.CombateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -13,6 +14,7 @@ public class CombateController {
     private final CombateService combateService;
 
     @PostMapping("/atacar")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atacarComJutsu(@RequestBody AtaqueRequest req) {
         combateService.atacarComJutsu(req.idAtacante(), req.idDefensor(), req.nomeJutsu());
     }

@@ -41,7 +41,7 @@ public class PersonagemServiceTest {
 
         assertNotNull(resultado);
         assertEquals("Naruto", resultado.getNome());
-        assertInstanceOf(NinjaDeTaijutsu.class, resultado); //é do tipo NinjaDeTaijutsu
+        assertInstanceOf(NinjaDeTaijutsu.class, resultado); //é do tipo NinjaDeTaijutsuTest
     }
 
     @Test
@@ -56,7 +56,7 @@ public class PersonagemServiceTest {
 
         assertNotNull(resultado);
         assertEquals("Sasuke", resultado.getNome());
-        assertInstanceOf(NinjaDeNinjutsu.class, resultado); //é do tipo NinjaDeNinjutsu
+        assertInstanceOf(NinjaDeNinjutsu.class, resultado); //é do tipo NinjaDeNinjutsuTest
     }
 
     @Test

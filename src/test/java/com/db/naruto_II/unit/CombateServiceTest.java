@@ -85,6 +85,9 @@ public class CombateServiceTest {
     void deveAtacarComJutsuSemDesvio() {
         Personagem atacante = new NinjaDeNinjutsu("Naruto", 100);
         Personagem defensor = spy(new NinjaDeTaijutsu("Sasuke", 100));
+        doReturn(0.99).when(defensor).gerarChance();
+
+        assertTrue(defensor.desviar());
 
         atacante.setId(1);
         defensor.setId(2);
@@ -94,8 +97,6 @@ public class CombateServiceTest {
 
         Jutsu rasengan = new Jutsu(50, 10);
         atacante.getJutsus().put("rasengan", rasengan);
-
-        doReturn(false).when(defensor).desviar();
 
         combateService.atacarComJutsu(1, 2, "rasengan");
 
@@ -107,6 +108,9 @@ public class CombateServiceTest {
     void deveAtacarComJutsuComDesvio() {
         Personagem atacante = new NinjaDeNinjutsu("Naruto", 100);
         Personagem defensor = spy(new NinjaDeTaijutsu("Sasuke", 100));
+        doReturn(0.10).when(defensor).gerarChance();
+
+        assertTrue(defensor.desviar());
 
         atacante.setId(1);
         defensor.setId(2);
@@ -116,8 +120,6 @@ public class CombateServiceTest {
 
         Jutsu rasengan = new Jutsu(50, 10);
         atacante.getJutsus().put("rasengan", rasengan);
-
-        doReturn(true).when(defensor).desviar();
 
         combateService.atacarComJutsu(1, 2, "rasengan");
 

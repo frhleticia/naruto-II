@@ -59,4 +59,8 @@ public abstract class Personagem implements Ninja {
     public boolean estaVivo() {
         return getVida() > 0;
     }
+
+    public double gerarChance() {
+        return Math.random();
+    }
 }
