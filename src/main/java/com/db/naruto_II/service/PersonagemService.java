@@ -7,16 +7,14 @@ import com.db.naruto_II.entity.NinjaDeNinjutsu;
 import com.db.naruto_II.entity.NinjaDeTaijutsu;
 import com.db.naruto_II.entity.Personagem;
 import com.db.naruto_II.repository.PersonagemRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class PersonagemService {
 
     private final PersonagemRepository personagemRepository;
-
-    public PersonagemService(PersonagemRepository personagemRepository) {
-        this.personagemRepository = personagemRepository;
-    }
 
     public Personagem criarPersonagem(PersonagemRequest request) {
         Personagem personagem;

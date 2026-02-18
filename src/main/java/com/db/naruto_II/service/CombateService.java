@@ -3,16 +3,14 @@ package com.db.naruto_II.service;
 import com.db.naruto_II.entity.Jutsu;
 import com.db.naruto_II.entity.Personagem;
 import jakarta.transaction.Transactional;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+@AllArgsConstructor
 @Service
 public class CombateService {
 
     private final PersonagemService personagemService;
-
-    public CombateService(PersonagemService personagemService) {
-        this.personagemService = personagemService;
-    }
 
     public Jutsu encontrarJutsuPeloNome(Integer id, String nomeJutsu) {
         Personagem personagem = personagemService.buscarPersonagemPorId(id);
